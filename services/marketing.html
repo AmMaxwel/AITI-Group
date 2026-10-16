@@ -1,0 +1,455 @@
+<!-- ============================================================
+     FILE: services/marketing.html
+     ============================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Tech Marketing — AITI GROUP</title>
+<meta name="description" content="We help tech brands and modern businesses stand out, rank higher on Google, and convert visitors into active clients." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #000000;
+    --fg: #ffffff;
+    --fg-muted: #b3b3b3;
+    --fg-dim: #a1a1a1;
+    --fg-sub: #888888;
+    --fg-muted-2: #666666;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-focus: rgba(255, 255, 255, 0.35);
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-strong: rgba(255, 255, 255, 0.07);
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-pill: 999px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --container: 1200px;
+    --pad-x: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body.is-locked { overflow: hidden; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.55;
+    font-weight: 400;
+    min-height: 100vh;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+    position: relative;
+  }
+
+  .video-bg { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: var(--bg); transform: translate3d(0, 0, 0); pointer-events: none; }
+  .video-bg video { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; transform: translate3d(0, 0, 0); will-change: transform; }
+  .video-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 60%, #000 100%); pointer-events: none; }
+
+  body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; z-index: -1; }
+
+  img, svg, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  .container { width: 100%; max-width: var(--container); margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+  section { padding: clamp(4rem, 9vw, 8rem) 0; position: relative; }
+
+  /* ---------- Navigation ---------- */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom: 1px solid var(--border); }
+  .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .wordmark { display: inline-flex; align-items: baseline; line-height: 1; transition: filter 0.4s var(--ease); z-index: 101; }
+  .wordmark:hover { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)); }
+  .wordmark__a { height: 0.82em; width: auto; display: inline-block; vertical-align: baseline; margin-right: -0.02em; transform: translateY(0.01em); }
+  .wordmark__text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.01em; color: var(--fg); }
+  .wordmark__group { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--fg-sub); margin-left: 0.55rem; text-transform: uppercase; align-self: center; transform: translateY(0.02em); }
+  .nav__links { display: flex; gap: 2.25rem; list-style: none; }
+  .nav__links a { font-size: 0.9rem; color: var(--fg-muted); transition: color 0.25s var(--ease); }
+  .nav__links a:hover { color: var(--fg); }
+  .nav__links a.active { color: var(--fg); }
+  .nav__cta { padding: 0.65rem 1.4rem; border-radius: var(--radius-pill); background: var(--fg); color: var(--bg); font-weight: 600; font-size: 0.875rem; transition: transform 0.25s var(--ease), background 0.25s var(--ease); }
+  .nav__cta:hover { transform: translateY(-1px); background: #e5e5e5; }
+
+  .nav__burger { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; cursor: pointer; z-index: 1001; position: relative; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
+  .nav__burger:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); }
+  .nav__burger svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+  .nav__overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); padding: 5rem var(--pad-x) 3rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .nav__overlay.is-open { opacity: 1; pointer-events: auto; }
+  .nav__close { position: absolute; top: 1.25rem; right: var(--pad-x); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; cursor: pointer; z-index: 1001; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
+  .nav__close:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); }
+  .nav__close svg { width: 24px; height: 24px; }
+  .nav__overlay-inner { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; transform: translateY(20px); transition: transform 0.5s var(--ease); width: 100%; max-width: 480px; }
+  .nav__overlay.is-open .nav__overlay-inner { transform: translateY(0); }
+  .nav__overlay-links { display: flex; flex-direction: column; align-items: center; gap: 1.75rem; list-style: none; width: 100%; }
+  .nav__overlay-links a { font-size: clamp(2rem, 7vw, 3rem); font-weight: 700; letter-spacing: -0.02em; color: var(--fg); transition: color 0.25s var(--ease); padding: 0.5rem 1rem; min-height: 48px; display: flex; align-items: center; }
+  .nav__overlay-links a:hover { color: var(--fg-muted); }
+  .nav__overlay-cta { width: 100%; padding: 1.15rem 2rem; background: var(--fg); color: var(--bg); border-radius: var(--radius-pill); font-size: 1rem; font-weight: 600; text-align: center; justify-content: center; display: flex; align-items: center; gap: 0.55rem; min-height: 52px; transition: transform 0.25s var(--ease), background 0.25s var(--ease); }
+  .nav__overlay-cta:hover { transform: translateY(-2px); background: #e5e5e5; }
+  .nav__overlay-meta { margin-top: 2rem; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-sub); }
+
+  /* ---------- Page Hero ---------- */
+  .page-hero { padding-top: clamp(9rem, 18vw, 13rem); padding-bottom: clamp(4rem, 8vw, 7rem); }
+  .page-hero__kicker { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-sub); margin-bottom: 1.75rem; }
+  .page-hero__headline { font-size: clamp(2.25rem, 6vw, 5rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: 1.75rem; }
+  .page-hero__sub { font-size: 1.15rem; line-height: 1.6; color: #A1A1A1; max-width: 58ch; font-weight: 400; }
+
+  /* ---------- Prose ---------- */
+  .prose { max-width: 720px; }
+  .prose__eyebrow { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-sub); margin-bottom: 1.5rem; }
+  .prose__title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
+
+  /* ---------- Scope Grid ---------- */
+  .scope-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; width: 100%; }
+  .scope-card { padding: 2.25rem 2rem; background: var(--glass-strong); border: 1px solid var(--border); border-radius: var(--radius-lg); transition: border-color 0.3s ease, transform 0.3s ease; min-height: 260px; }
+  .scope-card:hover { border-color: rgba(255, 255, 255, 0.25); transform: translateY(-3px); }
+  .scope-card__label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-sub); margin-bottom: 1.25rem; }
+  .scope-card__title { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.85rem; line-height: 1.25; }
+  .scope-card__body { color: #A1A1A1; font-size: 0.95rem; line-height: 1.65; }
+
+  /* ---------- CTA Banner ---------- */
+  .cta-banner { padding: clamp(5rem, 10vw, 8rem) 0; text-align: center; border-top: 1px solid var(--border); }
+  .cta-banner__headline { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 2rem; max-width: 22ch; margin-left: auto; margin-right: auto; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; padding: 0.95rem 1.75rem; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.92rem; min-height: 48px; transition: transform 0.25s var(--ease), background 0.25s var(--ease); border: 1px solid transparent; text-align: center; }
+  .btn--primary { background: var(--fg); color: var(--bg); }
+  .btn--primary:hover { transform: translateY(-2px); background: #e5e5e5; }
+  .btn__arrow { transition: transform 0.25s var(--ease); }
+  .btn:hover .btn__arrow { transform: translateX(3px); }
+
+  /* ---------- Footer ---------- */
+  .footer { border-top: 1px solid var(--border); padding: 4rem 0 2.5rem; }
+  .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3.5rem; }
+  .footer__brand p { color: var(--fg-muted-2); font-size: 0.88rem; margin-top: 1.25rem; line-height: 1.6; font-family: 'Space Mono', monospace; letter-spacing: 0.04em; }
+  .footer__col h4 { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-muted-2); margin-bottom: 1.35rem; font-weight: 400; }
+  .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer__col a { font-size: 0.88rem; color: var(--fg-sub); transition: color 0.25s var(--ease); display: inline-block; padding: 0.25rem 0; min-height: 32px; line-height: 32px; }
+  .footer__col a:hover { color: var(--fg); }
+  .footer__social { display: none; }
+  .footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .footer__copy { font-size: 0.8rem; color: var(--fg-muted-2); font-family: 'Space Mono', monospace; letter-spacing: 0.02em; }
+  .footer__legal { display: flex; gap: 1.75rem; list-style: none; flex-wrap: wrap; }
+  .footer__legal a { font-size: 0.8rem; color: var(--fg-sub); transition: color 0.25s var(--ease); font-family: 'Space Mono', monospace; letter-spacing: 0.02em; }
+  .footer__legal a:hover { color: var(--fg); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1024px) {
+    .scope-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- Mobile (iOS-first, strict separation) ---------- */
+  @media (max-width: 768px) {
+    .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+    /* PATCH 1: Solid black header, high z-index, no bleed-through */
+    .nav {
+      z-index: 999;
+      background: #000000;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .nav__links, .nav__cta { display: none; }
+    .nav__burger { display: flex; }
+
+    .page-hero { padding-top: 7.5rem; padding-bottom: 3rem; }
+    .page-hero__headline { font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; max-width: 100%; }
+    .page-hero__sub { font-size: 0.95rem; line-height: 1.5; color: #A1A1A1; }
+    .prose__title { font-size: 1.75rem; line-height: 1.2; }
+
+    .scope-grid { grid-template-columns: 1fr; gap: 0; }
+    .scope-card {
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      min-height: auto;
+    }
+    .scope-card:last-child { margin-bottom: 0; }
+    .scope-card__title { font-size: 1.15rem; }
+    .scope-card__body { font-size: 0.95rem; line-height: 1.5; color: #A1A1A1; }
+
+    .cta-banner__headline { font-size: 1.75rem; line-height: 1.2; }
+    .cta-banner .btn { width: 100%; height: 52px; border-radius: 26px; font-size: 1rem; }
+
+    /* Footer — 2-column compact layout */
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+      margin-bottom: 0.5rem;
+    }
+    .footer__col--connect { display: none; }
+    .footer__social {
+      display: flex;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding-top: 0.5rem;
+    }
+    .footer__social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      color: #ffffff;
+      transition: opacity 0.25s ease;
+    }
+    .footer__social a:hover { opacity: 0.7; }
+    .footer__social svg { width: 20px; height: 20px; }
+    .footer__col h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: #888888;
+      margin-bottom: 1rem;
+    }
+    .footer__col a {
+      font-size: 0.85rem;
+      color: #A1A1A1;
+    }
+    .footer__bottom { flex-direction: column; align-items: center; text-align: center; gap: 1.25rem; }
+    .footer__legal { justify-content: center; flex-wrap: wrap; gap: 1.25rem; }
+
+    /* App-like mobile animations */
+    .reveal { transition: opacity 0.4s ease, transform 0.4s ease; }
+
+    /* Tactile feedback */
+    .btn:active,
+    .scope-card:active,
+    .nav__burger:active,
+    .nav__close:active,
+    .nav__overlay-cta:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .page-hero__kicker { font-size: 0.65rem; }
+    .scope-card { padding: 1.25rem; }
+  }
+
+  @media (min-width: 1600px) { :root { --container: 1320px; } }
+
+  @supports (padding: max(0px)) {
+    .nav__overlay { padding-top: max(5rem, calc(env(safe-area-inset-top) + 4rem)); padding-bottom: max(3rem, env(safe-area-inset-bottom)); }
+    .nav__close { top: max(1.25rem, env(safe-area-inset-top)); }
+  }
+</style>
+</head>
+<body>
+
+<div class="video-bg" aria-hidden="true">
+  <video autoplay muted loop playsinline poster="">
+    <source src="../video.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="../index.html" class="wordmark" aria-label="AITI GROUP home">
+      <svg class="wordmark__a" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L3 22 h4 l5 -10 l5 10 h4 L12 2 z"/></svg>
+      <span class="wordmark__text">ITI</span>
+      <span class="wordmark__group">GROUP</span>
+    </a>
+    <nav aria-label="Primary" class="nav__desktop">
+      <ul class="nav__links">
+        <li><a href="../index.html#services" class="active">Services</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="nav__cta">Get in Touch</a>
+    <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="nav__overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav__close" id="navClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <line x1="6" y1="6" x2="18" y2="18"/>
+      <line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+  <div class="nav__overlay-inner">
+    <ul class="nav__overlay-links">
+      <li><a href="../index.html#services" data-nav-link>Services</a></li>
+      <li><a href="../about.html" data-nav-link>About</a></li>
+      <li><a href="../index.html#contact" data-nav-link>Contact</a></li>
+    </ul>
+    <a href="../index.html#contact" class="nav__overlay-cta" data-nav-link>
+      Get in Touch
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="nav__overlay-meta">Nairobi, Kenya</p>
+  </div>
+</div>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__kicker reveal">Tech Marketing</p>
+      <h1 class="page-hero__headline reveal">Clear positioning and growth marketing for digital brands.</h1>
+      <p class="page-hero__sub reveal">We help tech brands and modern businesses stand out, rank higher on Google, and convert visitors into active clients.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="prose reveal" style="margin-bottom: 3.5rem;">
+        <p class="prose__eyebrow">What We Do</p>
+        <h2 class="prose__title">Four services that turn attention into revenue.</h2>
+      </div>
+      <div class="scope-grid">
+        <article class="scope-card reveal">
+          <p class="scope-card__label">01 / Brand</p>
+          <h3 class="scope-card__title">Brand &amp; Messaging</h3>
+          <p class="scope-card__body">Position your business clearly with sharp messaging, visual identities, and website design that builds trust instantly.</p>
+        </article>
+        <article class="scope-card reveal">
+          <p class="scope-card__label">02 / SEO</p>
+          <h3 class="scope-card__title">Search Engine Optimization</h3>
+          <p class="scope-card__body">Technical SEO and speed optimization to help your target customers find you naturally on Google.</p>
+        </article>
+        <article class="scope-card reveal">
+          <p class="scope-card__label">03 / Campaigns</p>
+          <h3 class="scope-card__title">Targeted Campaigns</h3>
+          <p class="scope-card__body">Data-driven ad campaigns on search and social channels designed for measurable sales leads, not vanity clicks.</p>
+        </article>
+        <article class="scope-card reveal">
+          <p class="scope-card__label">04 / Content</p>
+          <h3 class="scope-card__title">Copywriting &amp; Landing Pages</h3>
+          <p class="scope-card__body">Clear, human sales copy for your website and product pages that explains your value without confusing jargon.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2 class="cta-banner__headline reveal">Ready to scale your digital presence?</h2>
+      <a href="../index.html#contact" class="btn btn--primary reveal">
+        Book a growth strategy session
+        <svg class="btn__arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="../index.html" class="wordmark" aria-label="AITI GROUP home">
+          <svg class="wordmark__a" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L3 22 h4 l5 -10 l5 10 h4 L12 2 z"/></svg>
+          <span class="wordmark__text">ITI</span>
+          <span class="wordmark__group">GROUP</span>
+        </a>
+        <p>Nairobi, Kenya</p>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="software.html">Software Engineering</a></li>
+          <li><a href="it-support.html">IT Support</a></li>
+          <li><a href="marketing.html">Tech Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col footer__col--connect">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener">X</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__social">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.92.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.3-5.24-1.28-5.24-5.7 0-1.26.45-2.3 1.2-3.1-.12-.3-.52-1.48.1-3.08 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.6.23 2.78.11 3.08.75.8 1.2 1.84 1.2 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="X">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg>
+      </a>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 AITI GROUP. All rights reserved.</span>
+      <ul class="footer__legal">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.getElementById('navBurger');
+  const overlay = document.getElementById('navOverlay');
+  const closeBtn = document.getElementById('navClose');
+  const body = document.body;
+  const overlayLinks = overlay.querySelectorAll('[data-nav-link]');
+
+  function openMenu() {
+    overlay.classList.add('is-open');
+    burger.setAttribute('aria-expanded', 'true');
+    overlay.setAttribute('aria-hidden', 'false');
+    body.classList.add('is-locked');
+  }
+  function closeMenu() {
+    overlay.classList.remove('is-open');
+    burger.setAttribute('aria-expanded', 'false');
+    overlay.setAttribute('aria-hidden', 'true');
+    body.classList.remove('is-locked');
+  }
+  burger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlayLinks.forEach(link => link.addEventListener('click', () => setTimeout(closeMenu, 150)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeMenu();
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else { revealEls.forEach(el => el.classList.add('is-visible')); }
+</script>
+
+</body>
+</html>
